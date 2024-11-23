@@ -1,0 +1,29 @@
+<p>&#96;java import java.util.ArrayList; import java.util.Scanner;</p>
+
+<p>class InvestmentPlan {  private String name;  private double price;  private double returns;</p>
+
+<p> public InvestmentPlan(String name, double price, double returns) {  this.name = name;  this.price = price;  this.returns = returns;  }</p>
+
+<p> public String getName() {  return name;  }</p>
+
+<p> public double getPrice() {  return price;  }</p>
+
+<p> public double getReturns() {  return returns;  } }</p>
+
+<p>class Payment {  public static void processPayment(String method, double amount) {  System.out.println(&quot;Processing &quot; + method + &quot; payment of: &quot; + amount);  // Payment processing logic goes here  } }</p>
+
+<p>public class InvestmentApp {  private ArrayList<InvestmentPlan> investmentPlans;</p>
+
+<p> public InvestmentApp() {  investmentPlans = new ArrayList<>();  investmentPlans.add(new InvestmentPlan(&quot;VIP 1&quot;, 300, 3200));  investmentPlans.add(new InvestmentPlan(&quot;VIP 2&quot;, 600, 6400));  }</p>
+
+<p> public void displayInvestmentPlans() {  System.out.println(&quot;Available Investment Plans:&quot;);  for (InvestmentPlan plan : investmentPlans) {  System.out.println(&quot;Name: &quot; + plan.getName() + &quot;, Price: &quot; + plan.getPrice() + &quot;, Returns: &quot; + plan.getReturns());  }  }</p>
+
+<p> public static void main(String[] args) {  InvestmentApp app = new InvestmentApp();  Scanner scanner = new Scanner(System.in);  String choice;</p>
+
+<p> do {  System.out.println(&quot;\n1. View Investment Plans&quot;);  System.out.println(&quot;2. Make a Payment&quot;);  System.out.println(&quot;3. Exit&quot;);  System.out.print(&quot;Enter your choice: &quot;);  choice = scanner.nextLine();</p>
+
+<p> switch (choice) {  case &quot;1&quot;:  app.displayInvestmentPlans();  break;  case &quot;2&quot;:  System.out.print(&quot;Enter Plan Name: &quot;);  String planName = scanner.nextLine();  InvestmentPlan selectedPlan = app.investmentPlans.stream()  .filter(plan -> plan.getName().equalsIgnoreCase(planName))  .findFirst()  .orElse(null);</p>
+
+<p> if (selectedPlan != null) {  System.out.print(&quot;Choose Payment Method (Cash/Bkash): &quot;);  String paymentMethod = scanner.nextLine();  if (selectedPlan.getPrice() >= 500) {  Payment.processPayment(paymentMethod, selectedPlan.getPrice());  } else {  System.out.println(&quot;Minimum amount for investment is 500.&quot;);  }  } else {  System.out.println(&quot;Invalid Plan Name.&quot;);  }  break;  case &quot;3&quot;:  System.out.println(&quot;Exiting...&quot;);  break;  default:  System.out.println(&quot;Invalid choice. Please try again.&quot;);  }  } while (!choice.equals(&quot;3&quot;));</p>
+
+<p> scanner.close();  } }</p>
